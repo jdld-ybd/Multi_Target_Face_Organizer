@@ -1,0 +1,15 @@
+#打开Anaconda Prompt,逐行执行以下代码
+
+#创建并激活一个新环境，()内填入你想要的环境名，然后删除()!!!
+conda create -p D:\(cv_face_env) python=3.8
+conda activate D:\(cv_face_env)
+
+# 先添加 conda-forge 源（dlib 不在默认源里）
+conda config --add channels conda-forge
+# 安装 dlib
+conda install dlib -y
+
+# 再安装 face_recognition 等
+pip install -r requirements.txt
+
+#在你所使用的编程工具里将环境改为你的环境名
