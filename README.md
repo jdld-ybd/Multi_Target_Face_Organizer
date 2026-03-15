@@ -1,5 +1,5 @@
-## 项目名称:多目标人脸分类整理器 (Multi-Target Face Organizer)
-## 环境要求python 3.8 及 3.8+
+## 项目名称:多目标人脸分类整理器 (Multi-Target Face Organizer)v1.0.0
+## 环境要求python 3.6 ~ 3.11
 ## 项目结构
     Multi_Target_Face_Organizer/
     ├── main.py                    # 主脚本，包含所有逻辑
