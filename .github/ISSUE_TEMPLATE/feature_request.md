@@ -1,20 +1,23 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
+name: ✨ 功能请求
+about: 提议新增功能/优化现有功能（如支持新格式/批量配置/可视化）
+title: "[Feature] "
+labels: enhancement
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## ✨ 功能需求描述
+请清晰、具体描述你想要的功能（例如：支持PNG/WEBP图片处理/添加命令行参数无需修改代码/实现目标人脸批量导入）
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## 🤔 为什么需要这个功能？
+请说明该功能解决的实际问题/使用场景（例如：日常整理的图片多为PNG格式，手动转换为JPG效率低/每次修改阈值都要改代码，不方便批量处理）
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## 📋 功能预期效果
+请描述功能实现后的操作流程/表现（例如：将待处理的PNG图片放入input_images，程序自动检测并处理/运行python main.py --tolerance 0.3，直接指定匹配阈值）
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+## 💡 实现建议（可选）
+请提出你对该功能的技术实现思路/参考方案（例如：修改get_jpg_files函数，添加.png/.webp后缀判断/使用argparse模块添加命令行参数）
+
+## 📌 其他补充
+该功能的优先级、是否愿意自己开发并提交PR等
