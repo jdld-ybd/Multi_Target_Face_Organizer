@@ -37,6 +37,7 @@
 - 🛡️ 完善的异常处理：跳过损坏图片，避免程序中断
 - 📝 实时打印处理日志，清晰展示匹配状态/相似度/文件路径
 - 🌍 跨平台兼容：支持 Windows/Linux/macOS
+- 👍 GUI美观界面操作
 
 ## 四、快速开始
 
@@ -45,7 +46,7 @@
 - `target_faces/`：放入需要匹配的目标人脸图片（建议单人脸正面照，格式为JPG或png或jpeg）
 - `input_images/`：放入待整理的所有图片（格式为JPG或png或jpeg）
 ### 2. 依赖库：
-    face_recognition、os、shutil（用于文件移动）、cv2(备用)。
+    face_recognition、os、shutil（用于文件移动）、cv2(备用)……（具体请查看requirements.txt）
 ### 3. 安装
     pip install -r requirements.txt
 - 如果windows无法正常安装(错误日志如 error.txt 所示)，请按照流程安装CMake，或使用Anaconda Prompt解决(具体方法见 solution.txt )!!!
