@@ -95,105 +95,164 @@ class FaceOrganizerApp:
         self.root.title("多目标人脸整理工具")
         self.root.geometry("1000x700")
         self.root.resizable(True, True)
+        # 设置窗口最小尺寸，防止内容变形
+        self.root.minsize(800, 700)
+        
+        # 设置科技风黑灰主题
+        self.root.configure(bg='#1a1a1a')
         
         # 设置样式
         self.style = ttk.Style()
         self.style.theme_use('clam')
         
-        # 自定义样式
-        self.style.configure('TLabelFrame', font=('Arial', 10, 'bold'), foreground='#333333')
-        self.style.configure('TButton', font=('Arial', 9), padding=5)
-        self.style.configure('Accent.TButton', background='#4CAF50', foreground='white', font=('Arial', 9, 'bold'))
-        self.style.map('Accent.TButton', background=[('active', '#45a049')])
-        
-        # 设置窗口图标（如果有）
-        # self.root.iconbitmap('icon.ico')
+        # 自定义样式 - 科技风黑灰主题
+        self.style.configure('TLabelFrame', 
+                            font=('Consolas', 10, 'bold'), 
+                            foreground='#ffffff', 
+                            background='#2d2d2d',
+                            borderwidth=2,
+                            relief='groove',
+                            lightcolor='#3d3d3d',
+                            darkcolor='#1a1a1a',
+                            bordercolor='#3d3d3d')
+        self.style.configure('TButton', 
+                            font=('Consolas', 9), 
+                            padding=5,
+                            background='#3d3d3d',
+                            foreground='#ffffff',
+                            lightcolor='#4d4d4d',
+                            darkcolor='#2d2d2d',
+                            bordercolor='#3d3d3d')
+        self.style.configure('Accent.TButton', 
+                            background='#4d4d4d', 
+                            foreground='#ffffff', 
+                            font=('Consolas', 9, 'bold'),
+                            borderwidth=1,
+                            relief='ridge',
+                            lightcolor='#5d5d5d',
+                            darkcolor='#3d3d3d',
+                            bordercolor='#4d4d4d')
+        self.style.map('Accent.TButton', 
+                      background=[('active', '#5d5d5d')],
+                      foreground=[('active', '#ffffff')])
+        self.style.configure('TEntry', 
+                            font=('Consolas', 9),
+                            fieldbackground='#3d3d3d',
+                            foreground='#ffffff',
+                            insertcolor='#ffffff',
+                            lightcolor='#4d4d4d',
+                            darkcolor='#2d2d2d',
+                            bordercolor='#3d3d3d')
+        self.style.configure('TLabel', 
+                            font=('Consolas', 9),
+                            background='#2d2d2d',
+                            foreground='#ffffff')
+        self.style.configure('TScale', 
+                            background='#2d2d2d',
+                            foreground='#ffffff',
+                            troughcolor='#3d3d3d',
+                            bordercolor='#3d3d3d')
+        self.style.configure('TScrollbar', 
+                            background='#3d3d3d',
+                            foreground='#ffffff',
+                            troughcolor='#1a1a1a',
+                            lightcolor='#4d4d4d',
+                            darkcolor='#2d2d2d',
+                            bordercolor='#3d3d3d')
+        # 为框架设置统一的背景色
+        self.style.configure('TLabelframe', background='#2d2d2d')
+        self.style.configure('TLabelframe.Label', background='#2d2d2d', foreground='#ffffff')
         
         # 主框架
-        self.main_frame = ttk.Frame(self.root, padding="10")
+        self.main_frame = ttk.Frame(self.root, padding="10", style='TFrame')
         self.main_frame.pack(fill=tk.BOTH, expand=True)
+        
+        # 为所有ttk框架设置统一的背景色
+        self.style.configure('TFrame', background='#1a1a1a')
         
         # 顶部框架 - 配置区域
         self.config_frame = ttk.LabelFrame(self.main_frame, text="配置", padding="10")
         self.config_frame.pack(fill=tk.X, pady=5)
         
         # 文件夹选择
-        folder_frame = ttk.Frame(self.config_frame)
+        folder_frame = ttk.Frame(self.config_frame, style='TFrame')
         folder_frame.pack(fill=tk.X, pady=5)
         
-        ttk.Label(folder_frame, text="输入文件夹:", width=12, font=('Arial', 9)).grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        ttk.Label(folder_frame, text="输入文件夹:", width=12, font=('Consolas', 9)).grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
         self.input_folder_var = tk.StringVar(value=INPUT_FOLDER)
-        input_entry = ttk.Entry(folder_frame, textvariable=self.input_folder_var, width=50, font=('Arial', 9))
+        input_entry = ttk.Entry(folder_frame, textvariable=self.input_folder_var, width=50, font=('Consolas', 9))
         input_entry.grid(row=0, column=1, padx=5, pady=5)
         input_entry.bind('<FocusIn>', lambda e: input_entry.select_range(0, tk.END))
-        ttk.Button(folder_frame, text="浏览", command=self.browse_input_folder).grid(row=0, column=2, padx=5, pady=5)
+        browse_button = ttk.Button(folder_frame, text="浏览", command=self.browse_input_folder)
+        browse_button.grid(row=0, column=2, padx=5, pady=5)
         
-        ttk.Label(folder_frame, text="输出文件夹:", width=12, font=('Arial', 9)).grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+        ttk.Label(folder_frame, text="输出文件夹:", width=12, font=('Consolas', 9)).grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
         self.output_folder_var = tk.StringVar(value=OUTPUT_FOLDER)
-        output_entry = ttk.Entry(folder_frame, textvariable=self.output_folder_var, width=50, font=('Arial', 9))
+        output_entry = ttk.Entry(folder_frame, textvariable=self.output_folder_var, width=50, font=('Consolas', 9))
         output_entry.grid(row=1, column=1, padx=5, pady=5)
         output_entry.bind('<FocusIn>', lambda e: output_entry.select_range(0, tk.END))
-        ttk.Button(folder_frame, text="浏览", command=self.browse_output_folder).grid(row=1, column=2, padx=5, pady=5)
+        browse_button = ttk.Button(folder_frame, text="浏览", command=self.browse_output_folder)
+        browse_button.grid(row=1, column=2, padx=5, pady=5)
         
         # 阈值设置
-        threshold_frame = ttk.Frame(self.config_frame)
+        threshold_frame = ttk.Frame(self.config_frame, style='TFrame')
         threshold_frame.pack(fill=tk.X, pady=5)
         
-        ttk.Label(threshold_frame, text="匹配阈值:", width=12, font=('Arial', 9)).grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        ttk.Label(threshold_frame, text="匹配阈值:", width=12, font=('Consolas', 9)).grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
         self.tolerance_var = tk.DoubleVar(value=TOLERANCE)
         tolerance_scale = ttk.Scale(threshold_frame, from_=0.1, to=1.0, orient=tk.HORIZONTAL, variable=self.tolerance_var, length=400)
         tolerance_scale.grid(row=0, column=1, padx=5, pady=5)
-        self.tolerance_label = ttk.Label(threshold_frame, text=f"{TOLERANCE:.2f}", font=('Arial', 9, 'bold'), width=5)
+        self.tolerance_label = ttk.Label(threshold_frame, text=f"{TOLERANCE:.2f}", font=('Consolas', 9, 'bold'), width=5, foreground='#ffffff')
         self.tolerance_label.grid(row=0, column=2, padx=5, pady=5)
         self.tolerance_var.trace_add("write", self.update_tolerance_label)
         
         # 添加阈值说明
-        ttk.Label(threshold_frame, text="(值越小，匹配越严格)", font=('Arial', 8, 'italic'), foreground='#666666').grid(row=1, column=1, sticky=tk.W, padx=5, pady=2)
+        ttk.Label(threshold_frame, text="(值越小，匹配越严格)", font=('Consolas', 9, 'italic'), foreground='#ffffff').grid(row=1, column=1, sticky=tk.W, padx=5, pady=2)
         
         # 中间框架 - 目标人脸显示
         self.target_frame = ttk.LabelFrame(self.main_frame, text="目标人脸", padding="10")
         self.target_frame.pack(fill=tk.X, pady=5)
         
-        self.target_canvas = tk.Canvas(self.target_frame, height=180, bg='#f5f5f5')
+        self.target_canvas = tk.Canvas(self.target_frame, height=180, bg='#2d2d2d', highlightbackground='#3d3d3d', highlightthickness=1)
         self.target_canvas.pack(fill=tk.X, expand=True)
         
         self.target_scrollbar = ttk.Scrollbar(self.target_frame, orient=tk.HORIZONTAL, command=self.target_canvas.xview)
         self.target_scrollbar.pack(fill=tk.X, side=tk.BOTTOM)
         self.target_canvas.config(xscrollcommand=self.target_scrollbar.set)
         
-        self.target_inner_frame = ttk.Frame(self.target_canvas)
+        self.target_inner_frame = ttk.Frame(self.target_canvas, style='TFrame')
         self.target_canvas.create_window((0, 0), window=self.target_inner_frame, anchor=tk.NW, tags="inner_frame")
         
         # 加载目标人脸
         self.load_target_faces()
         
         # 底部框架 - 控制和日志
-        self.control_frame = ttk.Frame(self.main_frame)
+        self.control_frame = ttk.Frame(self.main_frame, style='TFrame')
         self.control_frame.pack(fill=tk.BOTH, expand=True, pady=5)
         
         # 左侧 - 控制按钮
-        control_left = ttk.Frame(self.control_frame, width=200, relief=tk.RAISED, borderwidth=1)
+        control_left = ttk.Frame(self.control_frame, width=200, relief=tk.RAISED, borderwidth=2, style='TFrame')
         control_left.pack(side=tk.LEFT, fill=tk.Y, padx=5)
         
         # 添加标题
-        ttk.Label(control_left, text="控制", font=('Arial', 10, 'bold'), padding=10).pack()
+        ttk.Label(control_left, text="控制", font=('Consolas', 10, 'bold'), padding=5, foreground='#ffffff').pack()
         
         self.process_button = ttk.Button(control_left, text="开始处理", command=self.start_process, style="Accent.TButton")
-        self.process_button.pack(fill=tk.X, pady=10, padx=10)
+        self.process_button.pack(fill=tk.X, pady=5, padx=10)
         
         # 添加状态信息
-        status_frame = ttk.Frame(control_left, padding=10)
-        status_frame.pack(fill=tk.X, pady=5)
-        ttk.Label(status_frame, text="状态:", font=('Arial', 9)).pack(anchor=tk.W)
-        self.status_label = ttk.Label(status_frame, text="就绪", foreground="green", font=('Arial', 9, 'bold'))
+        status_frame = ttk.Frame(control_left, padding=5, style='TFrame')
+        status_frame.pack(fill=tk.X, pady=2)
+        ttk.Label(status_frame, text="状态:", font=('Consolas', 9)).pack(anchor=tk.W)
+        self.status_label = ttk.Label(status_frame, text="就绪", foreground="#ffffff", font=('Consolas', 9, 'bold'))
         self.status_label.pack(anchor=tk.W, pady=2)
         
         # 添加统计信息
-        ttk.Label(control_left, text="统计", font=('Arial', 10, 'bold'), padding=10).pack()
-        self.stats_frame = ttk.Frame(control_left, padding=10)
-        self.stats_frame.pack(fill=tk.X, pady=5)
-        ttk.Label(self.stats_frame, text="目标人脸: 0", font=('Arial', 9)).pack(anchor=tk.W, pady=2)
-        ttk.Label(self.stats_frame, text="输入图片: 0", font=('Arial', 9)).pack(anchor=tk.W, pady=2)
+        ttk.Label(control_left, text="统计", font=('Consolas', 10, 'bold'), padding=5, foreground='#ffffff').pack()
+        self.stats_frame = ttk.Frame(control_left, padding=5, style='TFrame')
+        self.stats_frame.pack(fill=tk.X, pady=2)
+        ttk.Label(self.stats_frame, text="目标人脸: 0", font=('Consolas', 9)).pack(anchor=tk.W, pady=2)
+        ttk.Label(self.stats_frame, text="输入图片: 0", font=('Consolas', 9)).pack(anchor=tk.W, pady=2)
         
         # 右侧 - 日志显示
         log_frame = ttk.LabelFrame(self.control_frame, text="处理日志", padding="10")
@@ -202,7 +261,16 @@ class FaceOrganizerApp:
         log_scrollbar = ttk.Scrollbar(log_frame)
         log_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         
-        self.log_text = tk.Text(log_frame, wrap=tk.WORD, yscrollcommand=log_scrollbar.set, height=15, font=('Consolas', 9), bg='#f8f8f8', fg='#333333', relief=tk.FLAT, borderwidth=1)
+        self.log_text = tk.Text(log_frame, 
+                               wrap=tk.WORD, 
+                               yscrollcommand=log_scrollbar.set, 
+                               height=15, 
+                               font=('Consolas', 9), 
+                               bg='#2d2d2d', 
+                               fg='#ffffff', 
+                               relief=tk.FLAT, 
+                               borderwidth=1, 
+                               insertbackground='#ffffff')
         self.log_text.pack(fill=tk.BOTH, expand=True)
         log_scrollbar.config(command=self.log_text.yview)
         
@@ -210,7 +278,7 @@ class FaceOrganizerApp:
         self.log_text.config(state=tk.DISABLED)
         
         # 添加日志说明
-        ttk.Label(log_frame, text="处理过程中的详细信息将显示在这里", font=('Arial', 8, 'italic'), foreground='#666666').pack(anchor=tk.W, pady=2)
+        ttk.Label(log_frame, text="处理过程中的详细信息将显示在这里", font=('Consolas', 8, 'italic'), foreground='#009900').pack(anchor=tk.W, pady=2)
         
         # 绑定窗口大小变化
         self.root.bind('<Configure>', self.on_configure)
@@ -235,8 +303,8 @@ class FaceOrganizerApp:
         for widget in self.stats_frame.winfo_children():
             widget.destroy()
         
-        ttk.Label(self.stats_frame, text=f"目标人脸: {target_count}", font=('Arial', 9)).pack(anchor=tk.W, pady=2)
-        ttk.Label(self.stats_frame, text=f"输入图片: {input_count}", font=('Arial', 9)).pack(anchor=tk.W, pady=2)
+        ttk.Label(self.stats_frame, text=f"目标人脸: {target_count}", font=('Consolas', 9), foreground='#ffffff').pack(anchor=tk.W, pady=2)
+        ttk.Label(self.stats_frame, text=f"输入图片: {input_count}", font=('Consolas', 9), foreground='#ffffff').pack(anchor=tk.W, pady=2)
     
     def on_configure(self, event):
         """窗口大小变化时调整布局"""
@@ -266,7 +334,7 @@ class FaceOrganizerApp:
         target_files = [f for f in os.listdir(TARGET_FOLDER) if f.lower().endswith(('.jpg', '.png', '.jpeg'))]
         
         for i, target_file in enumerate(target_files):
-            frame = ttk.Frame(self.target_inner_frame, padding="5")
+            frame = ttk.Frame(self.target_inner_frame, padding="5", style='TFrame')
             frame.grid(row=0, column=i, padx=10, pady=5)
             
             # 加载并显示图片
@@ -275,15 +343,15 @@ class FaceOrganizerApp:
                 image = image.resize((100, 100), Image.Resampling.LANCZOS)
                 photo = ImageTk.PhotoImage(image)
                 
-                label = ttk.Label(frame, image=photo)
+                label = ttk.Label(frame, image=photo, style='TLabel')
                 label.image = photo  # 保持引用
                 label.pack()
                 
                 # 显示文件名
-                name_label = ttk.Label(frame, text=os.path.splitext(target_file)[0], font=('Arial', 10))
+                name_label = ttk.Label(frame, text=os.path.splitext(target_file)[0], font=('Consolas', 10), foreground='#ffffff')
                 name_label.pack()
             except Exception as e:
-                ttk.Label(frame, text=f"加载失败", font=('Arial', 10)).pack()
+                ttk.Label(frame, text=f"加载失败", font=('Consolas', 10), foreground='#ff6666').pack()
         
         # 更新画布大小
         self.target_inner_frame.update_idletasks()
